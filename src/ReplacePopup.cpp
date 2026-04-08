@@ -46,11 +46,10 @@ bool ReplacePopup::init() {
             ->setAutoGrowAxis(114.f)
     );
 
+    handleTouchPriority(scroll, true);
     queueInMainThread([scroll = Ref(scroll)] {
-        if (auto delegate = typeinfo_cast<CCTouchDelegate*>(scroll.data())) {
-            if (auto handler = CCTouchDispatcher::get()->findHandler(delegate)) {
-                CCTouchDispatcher::get()->setPriority(handler->getPriority() - 1, handler->getDelegate());
-            }
+        if (auto handler = CCTouchDispatcher::get()->findHandler(scroll.data())) {
+            CCTouchDispatcher::get()->setPriority(handler->getPriority() - 1, handler->getDelegate());
         }
     });
 
