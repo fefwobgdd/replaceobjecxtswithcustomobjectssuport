@@ -1,0 +1,19 @@
+{
+	"geode": "5.5.2",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "zilko.replace_object",
+	"name": "Replace Object",
+	"version": "v1.0.0",
+	"developer": "Zilko",
+	"description": "",
+	"resources": {
+		"sprites": [
+			"resources/*.png"
+		]
+	}
+}
