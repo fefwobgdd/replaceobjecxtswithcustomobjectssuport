@@ -1,6 +1,7 @@
 #include "ReplacePopup.hpp"
 #include "SelectObjectPopup.hpp"
 #include "ObjectCell.hpp"
+#include "ProScrollLayer.hpp"
 
 #include <Geode/ui/Button.hpp>
 
@@ -35,7 +36,7 @@ bool ReplacePopup::init() {
     
     m_mainLayer->addChild(lbl);
 
-    auto scroll = ScrollLayer::create({114, 120}, true, true);
+    auto scroll = ProScrollLayer::create({114, 120}, true, true);
     scroll->ignoreAnchorPointForPosition(false);
     scroll->setPosition({78, 126});
     scroll->m_contentLayer->setLayout(
@@ -45,13 +46,6 @@ bool ReplacePopup::init() {
             ->setAxisAlignment(AxisAlignment::End)
             ->setAutoGrowAxis(114.f)
     );
-
-    handleTouchPriority(scroll, true);
-    queueInMainThread([scroll = Ref(scroll)] {
-        if (auto handler = CCTouchDispatcher::get()->findHandler(scroll.data())) {
-            CCTouchDispatcher::get()->setPriority(handler->getPriority() - 1, handler->getDelegate());
-        }
-    });
 
     m_mainLayer->addChild(scroll);
 
