@@ -20,7 +20,7 @@ void ProEditorUI::replace(const std::vector<int>& toReplace, int replaceObj) {
         if (Mod::get()->getSettingValue<bool>("show-notification")) {
             Notification::create("Replaced 0 objects.")->show();
         }
-        
+
         return;
     }
 
@@ -55,7 +55,7 @@ void ProEditorUI::replace(const std::vector<int>& toReplace, int replaceObj) {
         m_selectedObjects = prevSelectedObjects;
     }
 
-    this->pasteObjects(str, false, true);
+    this->pasteObjects(str, false, false);
 
     if (Mod::get()->getSettingValue<bool>("deselect-placed")) {
         this->deselectAll();
@@ -109,7 +109,7 @@ bool ProEditorUI::init(LevelEditorLayer* p0) {
     m_fields->button = btn;
     m_uiItems->addObject(btn);
 
-    updateButton();
+    this->updateButton();
 
     auto i = 0;
     auto f = m_fields.self();

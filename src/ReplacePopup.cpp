@@ -384,7 +384,5 @@ void ReplacePopup::updateStuff() {
     m_scroll->m_contentLayer->updateLayout();
     m_scroll->m_contentLayer->setPositionY(m_scroll->m_contentLayer->getContentHeight() * posMult);
 
-    if (m_totalObjects.size() == 1) {
-        m_addBtn->setVisible(false);
-    }
+    m_addBtn->setOpacity(static_cast<int>(m_totalObjects.size()) > 1 ? m_addBtn->getOpacity() : 0);
 }
