@@ -104,8 +104,6 @@ ProScrollLayer::ProScrollLayer(cocos2d::CCRect const& rect, bool scrollWheelEnab
     m_touchStartPosition2 = cocos2d::CCPointMake(0.f, 0.f);
     m_touchPosition2 = cocos2d::CCPointMake(0.f, 0.f);
 
-    this->setID("ProScrollLayerExt"_spr);
-
     this->setMouseEnabled(true);
     this->setTouchEnabled(true);
     this->setUserFlag("alk.better-touch-prio/steals-touch");

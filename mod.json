@@ -15,5 +15,25 @@
 		"sprites": [
 			"resources/*.png"
 		]
+	},
+	"settings": {
+		"deselect-placed": {
+			"type": "bool",
+			"name": "Deselect Placed",
+			"description": "Deselects all placed objects after replacing.",
+			"default": false
+		},
+		"delete-replaced": {
+			"type": "bool",
+			"name": "Delete Replaced",
+			"description": "Deletes all replaced objects.",
+			"default": true
+		},
+		"show-notification": {
+			"type": "bool",
+			"name": "Show Notification",
+			"description": "Shows a notification when objects are replaced.",
+			"default": true
+		}
 	}
 }
