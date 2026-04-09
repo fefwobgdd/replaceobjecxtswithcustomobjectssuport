@@ -6,8 +6,8 @@
 		"mac": "2.2081",
 		"ios": "2.2081"
 	},
-	"id": "zilko.replace_object",
-	"name": "Replace Object",
+	"id": "zilko.replace_objects",
+	"name": "Replace Objects",
 	"version": "v1.0.0",
 	"developer": "Zilko",
 	"description": "",
