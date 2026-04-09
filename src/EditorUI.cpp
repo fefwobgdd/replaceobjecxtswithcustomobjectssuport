@@ -4,13 +4,19 @@
 void ProEditorUI::replace(const std::vector<int>& toReplace, int replaceObj) {
     auto array = CCArray::create();
 
-    if (m_selectedObject && (std::ranges::contains(toReplace, m_selectedObject->m_objectID) || toReplace.empty())) {
+    if (
+        m_selectedObject 
+        && m_selectedObject->m_objectID != replaceObj
+        && (std::ranges::contains(toReplace, m_selectedObject->m_objectID) || toReplace.empty())) {
         array->addObject(m_selectedObject);
     }
 
     if (m_selectedObjects) {
         for (auto object : CCArrayExt<GameObject*>(m_selectedObjects)) {
-            if (std::ranges::contains(toReplace, object->m_objectID) || toReplace.empty()) {
+            if (
+                object->m_objectID != replaceObj
+                && (std::ranges::contains(toReplace, object->m_objectID) || toReplace.empty())
+            ) {
                 array->addObject(object);
             }
         }
