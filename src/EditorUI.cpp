@@ -46,30 +46,30 @@ void ProEditorUI::replace(const std::vector<int>& toReplace, int replaceObj) {
 
     str = string::join(vec, ";");
 
-    auto replaced = array->count();
-
     if (Mod::get()->getSettingValue<bool>("delete-replaced")) {
-        auto prevSelectedObject = m_selectedObject;
-        auto prevSelectedObjects = m_selectedObjects;
-
-        m_selectedObject = nullptr;
-        m_selectedObjects = array;
-
-        this->onDeleteSelected(nullptr);
-
-        m_selectedObject = prevSelectedObject;
-        m_selectedObjects = prevSelectedObjects;
-    }
-
-    this->pasteObjects(str, false, false);
-
-    if (Mod::get()->getSettingValue<bool>("deselect-placed")) {
         this->deselectAll();
+        this->selectObjects(array, false);
+        this->onDeleteSelected(nullptr);
     }
+
+    auto og = m_editorLayer->m_level->m_unlimitedObjectsEnabled;
+
+    m_editorLayer->m_keepEditorLayer = true;
+    m_editorLayer->m_level->m_unlimitedObjectsEnabled = true;
+
+    auto pasted = this->pasteObjects(str, false, false);
+
+    m_editorLayer->m_keepEditorLayer = false;
+    m_editorLayer->m_level->m_unlimitedObjectsEnabled = og;
     
     this->updateButtons();
     this->updateObjectInfoLabel();
-    this->updateGridNodeSize();
+
+    if (!Mod::get()->getSettingValue<bool>("select-placed")) {
+        this->deselectAll();
+    }
+
+    auto replaced = pasted->count();
 
     if (Mod::get()->getSettingValue<bool>("show-notification")) {
         Notification::create(

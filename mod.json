@@ -10,18 +10,23 @@
 	"name": "Replace Objects",
 	"version": "v1.0.0",
 	"developer": "Zilko",
-	"description": "",
+	"description": "Replace the objects with another object",
+	"tags": [ "utility", "editor", "offline", "enhancement" ],
+	"links": {
+		"source": "https://github.com/Zilko/replace-object",
+		"community": "discord.gg/w6yvdzVzBd"
+	},
 	"resources": {
 		"sprites": [
 			"resources/*.png"
 		]
 	},
 	"settings": {
-		"deselect-placed": {
+		"select-placed": {
 			"type": "bool",
-			"name": "Deselect Placed",
-			"description": "Deselects all placed objects after replacing.",
-			"default": false
+			"name": "Select Placed",
+			"description": "Selects all placed objects after replacing.",
+			"default": true
 		},
 		"delete-replaced": {
 			"type": "bool",
