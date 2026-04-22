@@ -8,7 +8,7 @@
 	},
 	"id": "zilko.replace_objects",
 	"name": "Replace Objects",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "Zilko",
 	"description": "Replace the objects with another object",
 	"tags": [ "utility", "editor", "offline", "enhancement" ],
