@@ -40,11 +40,12 @@ jobs:
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          sdk: v5.11.2
+          sdk: v5.5.2
           bindings: geode-sdk/bindings
           build-config: ${{ matrix.config.build-type || 'Release' }}
           export-pdb: true
-          bindings-ref: main
+          # Pin bindings before the CCFileUtilsWin32 import regression.
+          bindings-ref: 73c37ae95c922b55a421b6be2ea55c16182e2112
           combine: true
           target: ${{ matrix.config.target }}
 
