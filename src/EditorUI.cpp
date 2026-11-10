@@ -30,6 +30,51 @@ void ProEditorUI::replace(const std::vector<int>& toReplace, int replaceObj) {
         return;
     }
 
+    if (isCustomObject(replaceObj)) {
+        auto positions = std::vector<CCPoint>{};
+        auto seen = std::unordered_set<GameObject*>{};
+
+        for (auto object : CCArrayExt<GameObject*>(array)) {
+            if (seen.insert(object).second) {
+                positions.push_back(object->getPosition());
+            }
+        }
+
+        if (Mod::get()->getSettingValue<bool>("delete-replaced")) {
+            this->deselectAll();
+            this->selectObjects(array, false);
+            this->onDeleteSelected(nullptr);
+        }
+
+        auto unlimited = m_editorLayer->m_level->m_unlimitedObjectsEnabled;
+        m_editorLayer->m_keepEditorLayer = true;
+        m_editorLayer->m_level->m_unlimitedObjectsEnabled = true;
+
+        for (auto position : positions) {
+            m_clickAtPosition = position;
+            this->onCreateObject(replaceObj);
+        }
+
+        m_editorLayer->m_keepEditorLayer = false;
+        m_editorLayer->m_level->m_unlimitedObjectsEnabled = unlimited;
+
+        this->updateButtons();
+        this->updateObjectInfoLabel();
+
+        if (!Mod::get()->getSettingValue<bool>("select-placed")) {
+            this->deselectAll();
+        }
+
+        if (Mod::get()->getSettingValue<bool>("show-notification")) {
+            Notification::create(
+                fmt::format("Replaced {} object{}", positions.size(), positions.size() > 1 ? "s" : ""),
+                NotificationIcon::Success
+            )->show();
+        }
+
+        return;
+    }
+
     std::string str = this->copyObjects(array, true, true);
 
     auto vec = std::vector<std::string>{};
@@ -128,6 +173,10 @@ bool ProEditorUI::init(LevelEditorLayer* p0) {
         }
 
         i++;
+    }
+
+    for (auto key : CCArrayExt<CCString*>(GameManager::sharedState()->getOrderedCustomObjectKeys())) {
+        f->tabObjects[13].push_back(key->intValue());
     }
 
     return true;

@@ -238,7 +238,10 @@ bool ReplacePopup::init() {
 void ReplacePopup::selectObject(int id) {
     Mod::get()->setSavedValue("selected-object", id);
 
-    auto lbl = CCLabelBMFont::create(id <= 0 ? "Not Selected" : fmt::format("ID: {}", id).c_str(), "bigFont.fnt");
+    auto lbl = CCLabelBMFont::create(
+        id == 0 ? "Not Selected" : (isCustomObject(id) ? fmt::format("Custom: {}", -id).c_str() : fmt::format("ID: {}", id).c_str()),
+        "bigFont.fnt"
+    );
     lbl->setPosition({222, 112});
     lbl->limitLabelWidth(75.5f, 0.5f, 0.f);
 
@@ -250,10 +253,10 @@ void ReplacePopup::selectObject(int id) {
 
     auto spr = CCSprite::create("GJ_button_04.png");
 
-    auto sprite = createObjectSprite(id <= 0 ? 1 : id, 23.25f);
+    auto sprite = createObjectSprite(id == 0 ? 1 : id, 23.25f);
     sprite->setPosition(spr->getContentSize() / 2.f + CCPoint{0, 0.5f});
 
-    if (id <= 0) {
+    if (id == 0) {
         sprite->setCascadeOpacityEnabled(true);
         sprite->setOpacity(149);
     }
@@ -356,7 +359,7 @@ void ReplacePopup::addObjectCell(int id) {
 }
 
 void ReplacePopup::updateStuff() {
-    auto enabled = m_selectedObject > 0 && (!m_objects.empty() || Mod::get()->getSavedValue<bool>("any-enabled"));
+    auto enabled = m_selectedObject != 0 && (!m_objects.empty() || Mod::get()->getSavedValue<bool>("any-enabled"));
 
     m_replaceBtn->setOpacity(enabled ? 255 : 100);
     m_replaceBtn->setEnabled(enabled);

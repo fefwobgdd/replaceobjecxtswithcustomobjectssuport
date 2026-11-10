@@ -84,6 +84,7 @@ bool SelectObjectPopup::init() {
     this->addTabToggle(scroll, "d_spikes_01_001.png");
     this->addTabToggle(scroll, "sawblade_02_001.png");
     this->addTabToggle(scroll, "edit_eTintCol01Btn_001.png");
+    this->addTabToggle(scroll, "GJ_optionsBtn_001.png");
 
     scroll->m_contentLayer->updateLayout();
     scroll->scrollToTop();
